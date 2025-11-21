@@ -264,7 +264,7 @@ ggplot(stems_type, aes(x = month_year, y = mean_stems,
 # Fix date column to classify as date
 willowperform$date <- as.Date(willowperform$date, format = "%m/%d/%Y")
 
-# New table with planting dates
+### New table with planting dates. ----
 start_dates <- willowperform %>%
   group_by(field, plantingtype, species) %>%
   summarise(start_date = min(date, na.rm = TRUE)) %>%
