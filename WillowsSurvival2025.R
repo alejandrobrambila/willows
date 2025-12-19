@@ -143,5 +143,6 @@ willowsurvive %>%
   labs(title = "Final Surviving vs Initial Count by Field–Planting Combination",
        x = "Initial Count",
        y = "Final Surviving Count") +
+  geom_hline(yintercept=80/3) +
   theme_minimal()
 
