@@ -17,8 +17,7 @@ willowsurvive <- willowsurvive %>%
 
 
 ## ??
-ggplot(willowsurvive, aes(x = season_year, y = percentsurvived, color = species, 
-                          line = plantingtype, group = species)) +
+ggplot(willowsurvive, aes(x = season_year, y = percentsurvived, color = species, group=fieldplanting)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
   facet_wrap(~ field) +
@@ -137,10 +136,10 @@ willowsurvive %>%
   filter(season_year == "Fall 2025") %>%
   ggplot(aes(x = firstcount,
              y = count,
-             color = fieldplanting)) +
+             color = field, shape=plantingtype)) +
   geom_point(size = 3, alpha = 0.8) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
-  facet_wrap(~ field) +
+  facet_wrap(~ species) +
   labs(title = "Final Surviving vs Initial Count by Field–Planting Combination",
        x = "Initial Count",
        y = "Final Surviving Count") +
