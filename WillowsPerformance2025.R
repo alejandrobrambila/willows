@@ -7,7 +7,6 @@ willowperform <- read.csv("Willow Performance Data(TidyData).csv")
 # Add libraries (first is for plots, second is for editing data)
 library(ggplot2)
 library(dplyr)
-library(tidyverse)
 
 
 # New column combining month and year
@@ -71,6 +70,64 @@ ggplot(willow_summary, aes(x = month_year, y = mean_height, group = 1)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# height by species
+ggplot(willowperform, aes(x = month_year, y = height_cm, 
+                          color = species, group = species)) +
+  stat_summary(fun = mean, geom = "line", size = 1.2) +    
+  # average height per time point
+  stat_summary(fun = mean, geom = "point", size = 2) +     
+  # optional: add points
+  scale_color_manual(values = c( "discolor"= "gold",
+                                 "lucida" = "salmon",
+                                 "purpurea" = "mediumorchid2",
+                                 "sericea"  = "turquoise3")) +
+  labs(title = "Average Willow Height Growth Over Time by Species",
+       x = "Month and Year",
+       y = "Average Height (cm)",
+       color = "Species") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Height by species and plantingtype
+ggplot(willowperform, aes(x = month_year, y = height_cm, 
+                          color = species, linetype = plantingtype, group = interaction(species, plantingtype))) +
+  stat_summary(fun = mean, geom = "line", size = 1.2) +    
+  # average height per time point
+  stat_summary(fun = mean, geom = "point", size = 2) +     
+  # optional: add points
+ # facet_wrap(~ plantingtype) +
+  scale_color_manual(values = c( "discolor"= "gold",
+                                 "lucida" = "salmon",
+                                 "purpurea" = "mediumorchid2",
+                                 "sericea"  = "turquoise3")) +
+  labs(title = "Average Willow Height Growth Over Time by Species and Planting type",
+       x = "Month and Year",
+       y = "Average Height (cm)",
+       color = "Species") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+#Height by field
+ggplot(willowperform, aes(x = month_year, y = height_cm, 
+                          color = field, group = field)) +
+  stat_summary(fun = mean, geom = "line", size = 1.2) +    
+  # average height per time point
+  stat_summary(fun = mean, geom = "point", size = 2) +     
+  # optional: add points
+  scale_color_manual(values = c( "GP1"= "gold",
+                                 "GP2" = "salmon",
+                                 "Barberry" = "mediumorchid2",
+                                 "Underhill"  = "turquoise3")) +
+  labs(title = "Average Willow Height Growth Over Time by Field",
+       x = "Month and Year",
+       y = "Average Height (cm)",
+       color = "Field") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
 
 
 # Plot: Average Height overtime by field and species
@@ -92,6 +149,43 @@ ggplot(willowperform, aes(x = month_year, y = height_cm,
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+#Swap field and species
+ggplot(willowperform, aes(x = month_year, y = height_cm, 
+                          color = field, group = field)) +
+  stat_summary(fun = mean, geom = "line", size = 1.2) +    
+  # average height per time point
+  stat_summary(fun = mean, geom = "point", size = 2) +     
+  # optional: add points
+  facet_wrap(~ species) + 
+  scale_color_manual(values = c( "GP1"= "gold",
+                                 "GP2" = "salmon",
+                                 "Barberry" = "mediumorchid2",
+                                 "Underhill"  = "turquoise3")) +
+  labs(title = "Average Willow Height Growth Over Time by Species and Field",
+       x = "Month and Year",
+       y = "Average Height (cm)",
+       color = "Field") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+## species and plantingtype
+ggplot(willowperform, aes(x = month_year, y = height_cm, 
+                          color = plantingtype, group = plantingtype)) +
+  stat_summary(fun = mean, geom = "line", size = 1.2) +    
+  # average height per time point
+  stat_summary(fun = mean, geom = "point", size = 2) +     
+  # optional: add points
+  facet_wrap(~ species) + 
+  scale_color_manual(values = c( "Staked"= "gold","Rooted" = "mediumorchid2")) +
+  labs(title = "Average Willow Height Growth Over Time by Species and Planting type",
+       x = "Month and Year",
+       y = "Average Height (cm)",
+       color = "Planting type") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 # Define standard error function for error bars
@@ -264,7 +358,7 @@ ggplot(stems_type, aes(x = month_year, y = mean_stems,
 # Fix date column to classify as date
 willowperform$date <- as.Date(willowperform$date, format = "%m/%d/%Y")
 
-### New table with planting dates. ----
+# New table with planting dates
 start_dates <- willowperform %>%
   group_by(field, plantingtype, species) %>%
   summarise(start_date = min(date, na.rm = TRUE)) %>%
