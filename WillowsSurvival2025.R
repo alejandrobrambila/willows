@@ -20,6 +20,8 @@ ggplot(
   data = willowsurvive,
   mapping = aes(x = season_year, y = ((count)), color = species, shape = tube))+
   geom_jitter(width=.15) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(y ="Survivors", color = "Legend")+ 
   facet_wrap(~plantingtype)
 
@@ -27,18 +29,24 @@ ggplot(
   data = willowsurvive,
   mapping= aes(x = season_year, y = ((percentsurvived)), color = species, shape = field))+
   geom_jitter(width=.15) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(y ="% Survivors", color ="Legend") + facet_wrap(~plantingtype)
 
 ggplot(
   data = willowsurvive,
   mapping = aes(x = season_year, y = (1/(count/80)), color = species, shape = tube))+
   geom_jitter(width=.15)+ scale_y_log10()+
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(y ="Row Spacing (in ft)", color ="Legend")+ facet_wrap(~plantingtype)
 
 ggplot(
   data = willowsurvive,
   mapping = aes(x = season_year, y = (1/(count/80)), color = species, shape = field))+
   geom_jitter(width=.15)+scale_y_log10()+
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(y ="Row Spacing (in ft)", color = "Legend")+ facet_wrap(~plantingtype)
 
 
@@ -47,12 +55,16 @@ ggplot(
   data = willowsurvive,
   mapping = aes(x = season_year, y = (1/(count/80)), color = species, shape = plantingtype))+
   geom_jitter(width=.15)+scale_y_log10()+
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(y ="Row Spacing (in ft)", color = "Species")+ facet_wrap(~field)
 
 ggplot(
   data = willowsurvive,
   mapping = aes(x = season_year, y = (1/(count/80)), color = field, shape = plantingtype))+
   geom_jitter(width=.15)+scale_y_log10()+
+  scale_color_manual(values = c( "GP1"= "darkorange1", "GP2" = "violetred2",
+                                 "Barberry" = "royalblue","Underhill"  = "darkolivegreen3")) +
   labs(y ="Row Spacing (in ft)", color = "Field")+ facet_wrap(~species)
 
 
@@ -68,6 +80,8 @@ willowsurvive %>%
              group = species)) +
   geom_line(linewidth = 1.2) +
   geom_point(size = 3) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(title = "Average Percent Survival Over Time by Species",
        x = "Season",
        y = "Mean Percent Survived (%)") +
@@ -84,6 +98,8 @@ willowsurvive %>%
              group = field)) +
   geom_line(linewidth = 1.2) +
   geom_point(size = 3) +
+  scale_color_manual(values = c( "GP1"= "darkorange1", "GP2" = "violetred2",
+                                 "Barberry" = "royalblue","Underhill"  = "darkolivegreen3")) +
   labs(title = "Average Percent Survival Over Time by Field",
        x = "Season",
        y = "Mean Percent Survived (%)") +
@@ -102,6 +118,8 @@ willowsurvive %>%
   geom_line(linewidth = 1.2) +
   geom_point(size = 3) +
   facet_wrap(~ field) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(title = "Average Percent Survival Over Time by Species",
        x = "Season",
        y = "Mean Percent Survived (%)") +
@@ -116,6 +134,8 @@ ggplot(aes(x = species, y = percentsurvived, fill = field)) +
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~ season_year) +
   theme_minimal() +
+  scale_color_manual(values = c( "GP1"= "darkorange1", "GP2" = "violetred2",
+                                 "Barberry" = "royalblue","Underhill"  = "darkolivegreen3")) +
   labs(title = "Percent Survived by Species and Field",
        x = "Species",
        y = "Percent Survived (%)") +
@@ -137,6 +157,8 @@ willowsurvive %>%
   geom_line(linewidth = 1.2) +
   geom_point(size = 3) +
   facet_wrap(~ field) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(title = "Average Surviving Count Over Time by Species and Field",
        x = "Season",
        y = "Mean Surviving Count") +
@@ -155,6 +177,8 @@ willowsurvive %>%
   geom_point(size = 3) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
   facet_wrap(~ field) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(title = "Final Surviving Count vs Initial Count (Fall 2025)",
        x = "Initial Count",
        y = "Final Surviving Count") +
@@ -178,6 +202,8 @@ willowsurvive %>%
   geom_point(size = 4) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
   facet_wrap(~ field) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(title = "Average Final Surviving Count vs Initial Count (Fall 2025)",
        x = "Average Initial Count",
        y = "Average Final Surviving Count") +
@@ -196,6 +222,8 @@ willowsurvive %>%
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
   facet_wrap(~ field) +
   scale_alpha_manual(values = c("Row1" = 1, "Row2" = 0.7, "Row3" = 0.4)) +
+  scale_color_manual(values = c("Discolor"= "gold","Lucida" = "salmon",
+                                "Purpurea" = "mediumorchid2","Sericea"  = "turquoise")) +
   labs(title = "Final Surviving Count vs Initial Count (Fall 2025)",
        x = "Initial Count",
        y = "Final Surviving Count",
@@ -213,6 +241,8 @@ willowsurvive %>%
   geom_point(size = 3) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
   facet_wrap(~ species) +
+  scale_color_manual(values = c( "GP1"= "darkorange1", "GP2" = "violetred2",
+                                 "Barberry" = "royalblue","Underhill"  = "darkolivegreen3")) +
   labs(title = "Final Surviving Count vs Initial Count (Fall 2025)",
        x = "Initial Count",
        y = "Final Surviving Count") +
@@ -234,6 +264,8 @@ willowsurvive %>%
   geom_point(size = 4) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
   facet_wrap(~ species) +
+  scale_color_manual(values = c( "GP1"= "darkorange1", "GP2" = "violetred2",
+                                 "Barberry" = "royalblue","Underhill"  = "darkolivegreen3")) +
   labs(title = "Average Final Surviving Count vs Initial Count (Fall 2025)",
        x = "Average Initial Count",
        y = "Average Final Surviving Count") +
